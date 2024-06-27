@@ -1,0 +1,36 @@
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 392px;
+    margin: 0 auto; /* 좌우 마진 auto로 설정 */
+}
+label {
+    display: block; /* 라벨을 블록 요소로 표시하여 위에서 아래로 표시 */
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="nickname"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="nickname"]::placeholder {
+    color: #999;
+}
+
+.helper-text {
+    position: relative; /* 위치 지정을 위한 상대 위치 설정 */
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+    text-align: left;
+    color: #ff0000; 
+    }

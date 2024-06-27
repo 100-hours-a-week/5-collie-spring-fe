@@ -1,0 +1,16 @@
+.Bigbutton {
+    display: block; /* 블록 레벨 요소로 설정 */
+    width: 383px;
+    padding: 10px;
+    background-color: #aca0eb;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto; /* 좌우 마진 auto로 설정 */
+    margin-top: 20px;
+}
+
+.Bigbutton:hover {
+    background-color: #7f6aee;
+}

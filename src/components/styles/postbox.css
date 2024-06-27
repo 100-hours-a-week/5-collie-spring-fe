@@ -1,0 +1,67 @@
+
+.post-container {
+    background-color: #ffffff;
+    width: 592px;
+    height: 164px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 5px;
+    margin: 10px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  .post-info {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .post-comments {
+    margin-left: 10px;
+  }
+  
+  .post-views {
+    margin-left: 10px;
+  }
+  
+  .post-date {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    flex-shrink: 0; /* flexbox 내에서 크기 줄어들지 않도록 */
+    margin-right: 20px;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gray-circle {
+    width: 36px;
+    height: 36px;
+    margin-top: 10px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    margin-left: 10px;
+    overflow: hidden;
+  }
+  
+  .profile-image {
+    width: 100%; /* 이미지가 동그랗게 자리 잡도록 */
+    height: 100%; /* 이미지가 동그랗게 자리 잡도록 */
+    object-fit: cover; /* 이미지가 동그랗게 자리 잡도록 */
+    border-radius: 50%; /* 이미지를 동그랗게 만듭니다. */
+  }
+  
+  .post-author {
+    margin-left: 10px;
+  }
+  

@@ -1,0 +1,14 @@
+.signup-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px; 
+    color: #333; 
+    font-size: 16px;
+    width: 100%;
+    margin: 0 auto; /* 좌우 마진 auto로 설정 */
+    margin-top: 20px;
+}
+.signup-link:hover {
+    text-decoration: underline; 
+    cursor: pointer; 
+}
