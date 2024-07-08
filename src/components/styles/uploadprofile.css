@@ -1,46 +1,33 @@
-.inputProfile{
-    display: flex;
-    justify-content: center;
+/* uploadprofile.css */
+
+.inputProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 .inputProfile_box {
-    border-radius: 70%;
-    overflow: hidden;
-    background-color: #ffffff;
-    margin: 20px;
-    width: calc(149px - 120px);
-    height: calc(149px - 120px);
-    padding: 60px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.get_img{
-    width: 149px;
-    height: 149px;
-    border-radius: 50%;
-    opacity: 55%;
-    position: absolute;
-    left: -13%;
-    top: -13%;
+
+.get_img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+  cursor: pointer; /* 이미지에 커서 포인터 스타일을 추가 */
 }
-.filebox label{
-    position: absolute;
-    left: 0px;
-    top: -10px;
-    width: 150px;
-    height: 150px;
-    border-radius: 55px;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 17.9px;
-    align-content: center;
+
+.filebox {
+  position: relative;
 }
+
 .filebox input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+  display: none; /* 파일 입력 요소를 숨김 */
 }

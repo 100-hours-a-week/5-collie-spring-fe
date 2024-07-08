@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import '../styles/link.css';
 
-const SignUpLink = ({ text , onClick, className = '' }) => {
+const SignUpLink = ({ text, to, className = '' }) => {
   return (
-    <span className={`signup-link ${className}`} onClick={onClick}>
+    <Link to={to} className={`signup-link ${className}`}>
       {text}
-    </span>
+    </Link>
   );
 };
 
 SignUpLink.propTypes = {
   text: PropTypes.string,
-  onClick: PropTypes.func,
+  to: PropTypes.string.isRequired,
   className: PropTypes.string
 };
 

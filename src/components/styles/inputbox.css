@@ -13,7 +13,7 @@ label {
 input[type="email"],
 input[type="password"],
 input[type="nickname"] {
-    width: 100%;
+    width: 383px;
     padding: 8px;
     margin-bottom: 5px;
     border: 1px solid #ccc;

@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/uploadprofile.css';
 import ProfileImage from '../images/plus.png'; // 이미지를 임포트합니다.
 
 const InputProfile = ({ imgSrc = ProfileImage, inputId = 'change' }) => {
+  const fileInputRef = useRef(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <div className="inputProfile">
       <div className="inputProfile_box">
-        <img src={imgSrc} className="get_img" alt="upload_profile" />
-        <div className="filebox">
-          <label htmlFor={inputId}></label>
-          <input
-            type="file"
-            id={inputId}
-            accept="image/*"
-          />
-        </div>
+        <img 
+          src={imgSrc} 
+          className="get_img" 
+          alt="upload_profile" 
+          onClick={handleImageClick} 
+          style={{ cursor: 'pointer' }}
+        />
+        <input
+          type="file"
+          id={inputId}
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+        />
       </div>
     </div>
   );
