@@ -8,6 +8,7 @@ import EditpwdPage from './pages/editpasswordPage';
 import WritepostPage from './pages/writepostPage';
 import EditpostPage from './pages/editpostPage';
 import PostviewPage from './pages/PostviewPage';
+import IntroPage from './pages/introPage.jsx';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />}/>
+        <Route path="/intro" element={<IntroPage />} />
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/joinmember" element={<JoinmemberPage/>}/>
         <Route path="/post" element={<PostPage/>}/>
