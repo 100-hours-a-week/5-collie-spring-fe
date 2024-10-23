@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import SignUpLink from "../components/component/link";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import CollieLandTitle from '../../src/components/images/collie_land_title.png';  // 이미지 경로에 맞게 수정
 import bottomImg from '../../src/components/images/intro/bottom.png';
@@ -10,6 +10,28 @@ const LoginPage = () => {
   const [helperText, setHelperText] = useState({ email: "", password: "" });
   const [rememberId, setRememberId] = useState(false);  
   const [autoLogin, setAutoLogin] = useState(false);    
+  const navigate = useNavigate();
+
+  // 컴포넌트가 로드될 때 localStorage에서 이메일과 자동 로그인 상태를 확인
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('savedEmail');
+    const autoLoginEnabled = localStorage.getItem('autoLoginEnabled');
+
+    if (savedEmail) {
+      emailRef.current.value = savedEmail; // 저장된 이메일을 입력 필드에 설정
+      setRememberId(true);
+    }
+
+    if (autoLoginEnabled === 'true') {
+      setAutoLogin(true);
+      // 자동 로그인이 체크되어 있다면 저장된 정보를 이용해 로그인 시도
+      const token = localStorage.getItem('token');
+      if (token) {
+        console.log('자동 로그인 중...');
+        navigate('/dashboard'); // 로그인 후 이동할 페이지
+      }
+    }
+  }, [navigate]);
 
   const handleLogin = () => {
     const email = emailRef.current.value;
@@ -33,9 +55,24 @@ const LoginPage = () => {
 
     if (valid) {
       console.log('로그인 시도');
-      console.log('아이디 저장:', rememberId);  // 아이디 저장 여부 확인
-      console.log('자동 로그인:', autoLogin);    // 자동 로그인 여부 확인
-      // 여기에 로그인 로직을 추가할 수 있습니다.
+      console.log('아이디 저장:', rememberId);  
+      console.log('자동 로그인:', autoLogin);  
+
+      if (rememberId) {
+        localStorage.setItem('savedEmail', email); // 이메일 저장
+      } else {
+        localStorage.removeItem('savedEmail'); // 저장된 이메일 삭제
+      }
+
+      if (autoLogin) {
+        localStorage.setItem('autoLoginEnabled', 'true'); // 자동 로그인 상태 저장
+        localStorage.setItem('token', 'someAuthToken'); // 실제로는 서버에서 발급받은 토큰을 저장해야 함
+      } else {
+        localStorage.removeItem('autoLoginEnabled');
+        localStorage.removeItem('token'); // 자동 로그인이 해제되면 토큰 삭제
+      }
+
+      navigate('/dashboard'); // 로그인 후 이동할 페이지
     }
   };
 
@@ -45,20 +82,24 @@ const LoginPage = () => {
   };
 
   const validatePasswordFormat = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+    const passwordRegex = /^.{8,}$/; 
     return passwordRegex.test(password);
   };
 
   const handleInputChange = (type) => {
     const value = type === "email" ? emailRef.current.value : passwordRef.current.value;
     const isValid = type === "email" ? validateEmailFormat(value) : validatePasswordFormat(value);
-    const helperMessage = type === "email" ? '*올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)' : '*비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.';
+    const helperMessage = type === "email" ? '*올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)' : '*비밀번호는 8자 이상입니다.';
 
     if (value && !isValid) {
       setHelperText(prev => ({ ...prev, [type]: helperMessage }));
     } else {
       setHelperText(prev => ({ ...prev, [type]: '' }));
     }
+  };
+
+  const handleSignUpClick = () => {
+    navigate('/joinmember');
   };
 
   return (
@@ -87,7 +128,6 @@ const LoginPage = () => {
           </InputContainer>
         </InputBox>
 
-        
         <CheckboxContainer>
           <Label>
             <HiddenCheckbox 
@@ -113,16 +153,24 @@ const LoginPage = () => {
           <BlackButton onClick={handleLogin}>로그인</BlackButton>
         </ButtonContainer>
         <ButtonContainer>
-          <SignUpLink
-            text="회원가입하러 가기"
-            to="/joinmember"
-          />
+          <CustomLink onClick={handleSignUpClick}>회원가입하러 가기</CustomLink> 
         </ButtonContainer>
       </FormBox>
       <BottomImage src={bottomImg} alt="Bottom Image" />
     </Container>
   );
 };
+
+
+const CustomLink = styled.button`
+  background: none;
+  border: none;
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -228,7 +276,7 @@ const HiddenCheckbox = styled.input`
 const StyledCheckbox = styled.div`
   width: 16px;
   height: 16px;
-  background: ${props => (props.checked ? "black" : "white")}; /* 기본은 흰색, 체크되면 검은색 */
+  background: ${props => (props.checked ? "black" : "white")}; 
   border-radius: 3px;
   transition: all 150ms;
   border: 2px solid black; 
@@ -253,10 +301,6 @@ const StyledCheckbox = styled.div`
     }
   `}
 `;
-
-
-
-
 
 const Label = styled.label`
   display: flex;
