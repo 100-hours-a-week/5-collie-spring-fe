@@ -5,8 +5,6 @@ import FootprintImage from '../../src/components/images/collie_4.png';
 import CollieImage from '../../src/components/images/collie_5.png'; 
 import BottomImageSrc from '../../src/components/images/bottom.png'; 
 import UserProfileSrc from '../../src/components/images/image1.png'; 
-
-
 import PostImageSrc1 from '../../src/components/images/post/IMG_0404.jpeg'; 
 import PostImageSrc2 from '../../src/components/images/post/IMG_1076.jpeg'; 
 import PostImageSrc3 from '../../src/components/images/post/IMG_2301.jpeg'; 
@@ -23,11 +21,11 @@ import PostImageSrc13 from '../../src/components/images/post/IMG_9126.jpeg';
 import PostImageSrc14 from '../../src/components/images/post/IMG_9341.jpeg'; 
 
 const posts = [
-    { title: "1번 게시물", likes: 10, comments: 5, views: 20, author: "콜리", images: [PostImageSrc1, PostImageSrc2, PostImageSrc3] },
-    { title: "2번 게시물", likes: 7, comments: 2, views: 15, author: "콜리", images: [PostImageSrc4, PostImageSrc5, PostImageSrc6] },
-    { title: "3번 게시물", likes: 3, comments: 1, views: 8, author: "콜리", images: [PostImageSrc7, PostImageSrc8, PostImageSrc9] },
-    { title: "4번 게시물", likes: 6, comments: 3, views: 18, author: "콜리", images: [PostImageSrc10, PostImageSrc11, PostImageSrc12] },
-    { title: "5번 게시물", likes: 8, comments: 4, views: 22, author: "콜리", images: [PostImageSrc13, PostImageSrc14, PostImageSrc1] },
+    { title: "여름날의 보더콜리", likes: 10, comments: 5, views: 20, author: "콜리", images: [PostImageSrc1, PostImageSrc2, PostImageSrc3] },
+    { title: "사실 이 강아지의 이름은", likes: 7, comments: 2, views: 15, author: "콜리", images: [PostImageSrc4, PostImageSrc5, PostImageSrc6] },
+    { title: "여름이입니다~", likes: 3, comments: 1, views: 8, author: "콜리", images: [PostImageSrc7, PostImageSrc8, PostImageSrc9] },
+    { title: "너무 귀엽죠?", likes: 6, comments: 3, views: 18, author: "콜리", images: [PostImageSrc10, PostImageSrc11, PostImageSrc12] },
+    { title: "축축한 여름이", likes: 8, comments: 4, views: 22, author: "콜리", images: [PostImageSrc13, PostImageSrc14, PostImageSrc1] },
 ];
 
 const POSTS_PER_PAGE = 3;
@@ -46,7 +44,7 @@ const App = () => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsDropdownOpen(false); // 드롭다운 바깥을 클릭했을 때 닫기
+                setIsDropdownOpen(false);
             }
         };
 
@@ -92,19 +90,18 @@ const App = () => {
 
     const handleMyPage = () => {
         alert('마이페이지로 이동합니다!');
-        setIsDropdownOpen(false); // 드롭다운 닫기
+        setIsDropdownOpen(false);
     };
 
     const handleLogout = () => {
         alert('로그아웃되었습니다.');
-        setIsDropdownOpen(false); // 드롭다운 닫기
+        setIsDropdownOpen(false);
     };
 
     return (
         <Container>
           <HeaderImage src={CollieLandTitle} alt="Collie Land Title" />
           
-          {/* 검색 기능 추가 */}
           <SearchContainer>
             <SearchInput
               type="text"
@@ -132,9 +129,9 @@ const App = () => {
           {renderPageNumbers()}
           <RightBottomImage src={FootprintImage} alt="footprint" />
           <LeftBottomImage src={CollieImage} alt="collie" />
-          <BottomImage src={BottomImageSrc} alt="bottom" /> {/* 추가된 이미지 */}
+          <BottomImage src={BottomImageSrc} alt="bottom" />
 
-          {/* 사용자 프로필 추가 */}
+          
           <ProfileImage onClick={toggleDropdown} src={UserProfileSrc} alt="user profile" />
           {isDropdownOpen && (
             <DropdownMenu ref={dropdownRef}>
@@ -299,17 +296,21 @@ const DropdownMenu = styled.div`
 `;
 
 const DropdownItem = styled.div`
-  padding: 10px 20px;
-  width: 200px; 
+  padding: 10px 0;
+  padding-left: 20px; 
+  width: 100%;
   font-size: 14px;
   cursor: pointer;
   color: black;
+  border-radius: 8px;
+  box-sizing: border-box; 
 
   &:hover {
     background-color: #f6b246;
-    width: 200px;
   }
 `;
+
+
 
 const PostTitle = styled.h3`
   margin: 0;
@@ -430,4 +431,3 @@ const BottomImage = styled.img`
   height: auto;
   z-index: 0; 
 `;
-

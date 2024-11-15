@@ -28,7 +28,7 @@ const LoginPage = () => {
       const token = localStorage.getItem('token');
       if (token) {
         console.log('자동 로그인 중...');
-        navigate('/dashboard'); // 로그인 후 이동할 페이지
+        navigate('/post'); // 로그인 후 이동할 페이지
       }
     }
   }, [navigate]);
