@@ -24,7 +24,7 @@ function App() {
         <Route path="/editpwd" element={<EditpwdPage/>}/>
         <Route path="/editprofile" element={<EditprofilePage/>}/>
         <Route path="/writepost" element={<WritepostPage/>}/>
-        <Route path="/postview" element={<PostviewPage/>}/> 
+        <Route path="/post/:id" element={<PostviewPage/>}/> 
         <Route path="/editpost" element={<EditpostPage/>}/>
       </Routes>
       </BrowserRouter>

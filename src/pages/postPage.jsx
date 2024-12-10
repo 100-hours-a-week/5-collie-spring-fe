@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CollieLandTitle from '../../src/components/images/collie_land_title.png';
 import FootprintImage from '../../src/components/images/collie_4.png'; 
@@ -21,17 +22,16 @@ import PostImageSrc13 from '../../src/components/images/post/IMG_9126.jpeg';
 import PostImageSrc14 from '../../src/components/images/post/IMG_9341.jpeg'; 
 
 const posts = [
-    { title: "여름날의 보더콜리", likes: 10, comments: 5, views: 20, author: "콜리", images: [PostImageSrc1, PostImageSrc2, PostImageSrc3] },
-    { title: "사실 이 강아지의 이름은", likes: 7, comments: 2, views: 15, author: "콜리", images: [PostImageSrc4, PostImageSrc5, PostImageSrc6] },
-    { title: "여름이입니다~", likes: 3, comments: 1, views: 8, author: "콜리", images: [PostImageSrc7, PostImageSrc8, PostImageSrc9] },
-    { title: "너무 귀엽죠?", likes: 6, comments: 3, views: 18, author: "콜리", images: [PostImageSrc10, PostImageSrc11, PostImageSrc12] },
-    { title: "축축한 여름이", likes: 8, comments: 4, views: 22, author: "콜리", images: [PostImageSrc13, PostImageSrc14, PostImageSrc1] },
+    { title: "여름날의 보더콜리", likes: 10, comments: 5, views: 20, author: "콜리", images: [PostImageSrc1, PostImageSrc2, PostImageSrc3], date: "2023-06-12" },
+    { title: "사실 이 강아지의 이름은", likes: 7, comments: 2, views: 15, author: "콜리", images: [PostImageSrc4, PostImageSrc5, PostImageSrc6], date: "2023-07-08" },
+    { title: "여름이입니다~", likes: 3, comments: 1, views: 8, author: "콜리", images: [PostImageSrc7, PostImageSrc8, PostImageSrc9], date: "2023-08-01" },
+    { title: "너무 귀엽죠?", likes: 6, comments: 3, views: 18, author: "콜리", images: [PostImageSrc10, PostImageSrc11, PostImageSrc12], date: "2023-09-15" },
+    { title: "축축한 여름이", likes: 8, comments: 4, views: 22, author: "콜리", images: [PostImageSrc13, PostImageSrc14, PostImageSrc1], date: "2023-10-05" },
 ];
 
 const POSTS_PER_PAGE = 3;
 
 const App = () => {
-    const currentDate = new Date().toLocaleString();
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState(""); 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
@@ -115,11 +115,12 @@ const App = () => {
             {currentPosts.map((post, index) => (
               <PostItem key={index}>
                 <PostBox
+                  id={posts.indexOf(post)}
                   title={post.title}
                   likes={post.likes}
                   comments={post.comments}
                   views={post.views}
-                  date={currentDate}
+                  date={post.date}
                   author={post.author}
                   images={post.images}
                 />
@@ -131,7 +132,6 @@ const App = () => {
           <LeftBottomImage src={CollieImage} alt="collie" />
           <BottomImage src={BottomImageSrc} alt="bottom" />
 
-          
           <ProfileImage onClick={toggleDropdown} src={UserProfileSrc} alt="user profile" />
           {isDropdownOpen && (
             <DropdownMenu ref={dropdownRef}>
@@ -140,7 +140,6 @@ const App = () => {
             </DropdownMenu>
           )}
 
-          {/* 게시물 작성하기 버튼 */}
           <CreatePostButton onClick={() => alert('게시물 작성 페이지로 이동합니다!')}>
             게시물 작성하기
           </CreatePostButton>
@@ -148,8 +147,9 @@ const App = () => {
     );
 };
 
-const PostBox = ({ title, likes, comments, views, date, author, images }) => {
+const PostBox = ({ id, title, likes, comments, views, date, author, images }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const navigate = useNavigate();
 
     const handleNextImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -159,17 +159,21 @@ const PostBox = ({ title, likes, comments, views, date, author, images }) => {
         setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };
 
+    const handlePostClick = () => {
+        navigate(`/post/${id}`);
+    };
+
     return (
-        <PostContainer>
+        <PostContainer onClick={handlePostClick}>
             <PostTitle>{title}</PostTitle>
             <PostInfo>
               <span>{author}</span>
               <span>{date}</span>
             </PostInfo>
             <PostImageWrapper>
-                <ArrowButton onClick={handlePrevImage}>{"<"}</ArrowButton>
+                <ArrowButton onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}>{"<"}</ArrowButton>
                 <PostImageStyled src={images[currentImageIndex]} alt="Post" />
-                <ArrowButton onClick={handleNextImage}>{">"}</ArrowButton>
+                <ArrowButton onClick={(e) => { e.stopPropagation(); handleNextImage(); }}>{">"}</ArrowButton>
             </PostImageWrapper>
             <PostStats>
                 <span>👍 {likes}</span>
@@ -245,7 +249,13 @@ const PostContainer = styled.div`
   max-width: 592px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; 
+  cursor: pointer; 
+
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+  }
 `;
+
 
 const CreatePostButton = styled.button`
   position: fixed;
